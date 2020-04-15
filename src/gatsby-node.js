@@ -15,7 +15,7 @@ function changelogToJson(changelog) {
     head: changelog.head,
     footer: changelog.footer,
     url: changelog.url,
-    releases: releasesToJson(changelog.releases)
+    releases: releasesToJson(changelog.releases),
   };
 }
 
@@ -37,25 +37,25 @@ function changesToJson(changesMap) {
     deprecated: changeArrayToJson(changesMap.get("deprecated")),
     removed: changeArrayToJson(changesMap["removed"]),
     fixed: changeArrayToJson(changesMap.get("fixed")),
-    security: changeArrayToJson(changesMap.get("security"))
-  }
+    security: changeArrayToJson(changesMap.get("security")),
+  };
 }
 
 function changeArrayToJson(changeArray) {
-  const change = (changeArray || []).map(change => {
+  const change = (changeArray || []).map((change) => {
     return {
       title: change.title,
       description: change.description,
-      issues: change.issues
-    }
-  })
+      issues: change.issues,
+    };
+  });
   return change;
 }
 
-async function onCreateNode(
+exports.onCreateNode = async (
   { node, actions, loadNodeContent, createNodeId, createContentDigest },
   pluginOptions
-) {
+) => {
   if (!isChangelogFile(node)) {
     return;
   }
@@ -63,8 +63,7 @@ async function onCreateNode(
   const { createNode, createParentChildLink } = actions;
 
   const content = await loadNodeContent(node);
-  const parsedChangelog = parser(content);
-  const changelog = changelogToJson(parsedChangelog);
+  const changelog = changelogToJson(parser(content));
 
   const id = createNodeId(`${node.id} >>> Changelog`);
 
@@ -83,4 +82,23 @@ async function onCreateNode(
   createParentChildLink({ parent: node, child: changelogNode });
 }
 
-exports.onCreateNode = onCreateNode;
+exports.createResolvers = ({ createResolvers }) => {
+  const resolvers = {
+    Changelog: {
+      releases: {
+        args: {
+          version: "String",
+        },
+        resolve(source, args) {
+          if (!args.version) {
+            return source.releases;
+          }
+          return source.releases.filter(
+            (release) => release.version === args.version
+          );
+        },
+      },
+    },
+  };
+  createResolvers(resolvers);
+};
