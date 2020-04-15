@@ -1,0 +1,40 @@
+{
+  "name": "gatsby-transformer-keepachangelog",
+  "version": "1.0.0",
+  "description": "Gatsby transformer plugin for files in the keepachangelog format",
+  "main": "index.js",
+  "repository": "https://github.com/sdorra/gatsby-transformer-keepachangelog",
+  "bugs": {
+    "url": "https://github.com/sdorra/gatsby-transformer-keepachangelog/issues"
+  },
+  "author": "Sebastian Sdorra <s.sdorra@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "keywords": [
+    "gatsby",
+    "gatsby-plugin",
+    "changelog",
+    "keepachangelog"
+  ],
+  "peerDependencies": {
+    "gatsby": "^2.0.15"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.8.7",
+    "keep-a-changelog": "^0.10.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.7",
+    "babel-preset-gatsby-package": "^0.3.1",
+    "cross-env": "^7.0.2"
+  },
+  "scripts": {
+    "build": "babel src --out-dir . --ignore **/__tests__",
+    "prepare": "cross-env NODE_ENV=production npm run build",
+    "watch": "babel -w src --out-dir . --ignore **/__tests__"
+  },
+  "engines": {
+    "node": ">=10.13.0"
+  }
+}
