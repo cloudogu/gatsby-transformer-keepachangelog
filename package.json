@@ -1,11 +1,11 @@
 {
   "name": "gatsby-transformer-keepachangelog",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Gatsby transformer plugin for files in the keepachangelog format",
   "main": "index.js",
-  "repository": "https://github.com/sdorra/gatsby-transformer-keepachangelog",
+  "repository": "https://github.com/cloudogu/gatsby-transformer-keepachangelog",
   "bugs": {
-    "url": "https://github.com/sdorra/gatsby-transformer-keepachangelog/issues"
+    "url": "https://github.com/cloudogu/gatsby-transformer-keepachangelog/issues"
   },
   "author": "Sebastian Sdorra <sebastian.sdorra@cloudogu.com>",
   "license": "MIT",
