@@ -34,15 +34,16 @@ Where the _source folder_ `./src/data/` contains the `CHANGELOG.md` files.
 
 You can query the nodes using GraphQL, like from the GraphiQL browser: `http://localhost:8000/___graphql`.
 
-Regardless of whether you choose to structure your data in arrays of objects or
-single objects, you'd be able to query your letters like:
-
 ```graphql
 {
   allChangelog {
-    edges {
-      node {
-        
+    nodes {
+      versions {
+        tag
+        date
+        changes {
+          html
+        }
       }
     }
   }
@@ -51,11 +52,31 @@ single objects, you'd be able to query your letters like:
 
 Which would return:
 
-```javascript
+```json
 {
-  allChangelog: {
-    edges: [
-      
-    ]
+  "data": {
+    "allChangelog": {
+      "nodes": [
+        {
+          "versions": [
+            {
+              "tag": "1.0.0",
+              "date": "2020-04-09T00:00:00.000Z",
+              "changes": {
+                "html": "<h3>Fixed</h3>..."
+              }
+            },
+            {
+              "tag": "1.0.0-RC1",
+              "date": "2020-03-26T00:00:00.000Z",
+              "changes": {
+                "html": "<h3>Added</h3>..."
+              }
+            }
+          ]
+        }
+      ]
+    }
   }
 }
+```
