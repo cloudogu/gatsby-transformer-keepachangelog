@@ -1,6 +1,6 @@
 {
   "name": "gatsby-transformer-keepachangelog",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Gatsby transformer plugin for files in the keepachangelog format",
   "main": "index.js",
   "repository": "https://github.com/cloudogu/gatsby-transformer-keepachangelog",
