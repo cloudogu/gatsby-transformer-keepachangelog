@@ -39,3 +39,24 @@ exports.onCreateNode = async ({
     child: changelogNode,
   });
 };
+
+exports.createResolvers = ({ createResolvers }) => {
+  const resolvers = {
+    Changelog: {
+      versions: {
+        args: {
+          tag: "String",
+        },
+        resolve(source, args) {
+          if (!args.tag) {
+            return source.versions;
+          }
+          return source.versions.filter(
+            (version) => version.tag === args.tag
+          );
+        },
+      },
+    },
+  };
+  createResolvers(resolvers);
+};
